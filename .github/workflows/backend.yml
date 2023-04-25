@@ -62,7 +62,7 @@ jobs:
          environment_name: Demoapi-env
          version_label: demoapi-${{github.run_number}}
          region: us-east-1
-         deployment_package: DemoApi/build/artifact.zip
+         deployment_package: site/artifact.zip
 
   test:
    name: Unit Tests
