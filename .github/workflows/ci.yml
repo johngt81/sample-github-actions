@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: Sample CI CD 🚀
+name: GitHub CI
+run-name: CI Deployment 🚀
 on: [push]
 jobs:
   build:
