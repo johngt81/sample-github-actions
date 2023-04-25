@@ -22,14 +22,20 @@ jobs:
     - name: Restore dependencies
       run: cd DemoApi && dotnet restore
    
-    - name: build
-      run: cd DemoApi && dotnet build --no-restore
+    # - name: build
+    #   run: cd DemoApi && dotnet build --no-restore
+
+    - name: Publish
+      run: cd DemoApi && dotnet publish -r linux-x64 --configuration "Release" --self-contained "true" -o ../site;
+
+    # - name: Generate deployment package
+    #   run: cd DemoApi/site; zip ../site.zip * 
 
     - name: Store artifact
       uses: actions/upload-artifact@v3
       with:
         name: backend-artifact
-        path: DemoApi/build/
+        path: site
   
   deploy_to_eb:
     needs: [test]
@@ -39,12 +45,12 @@ jobs:
        uses: actions/download-artifact@v2
        with:
          name: backend-artifact
-         path: DemoApi/build
+         path: site
 
     #  - name: Prepare ProcFile
     #    run: 
      - name: Prepare Zip File
-       run: cd DemoApi/build && zip -r artifact.zip ./ -x '*.git*'
+       run: cd site && zip -r artifact.zip ./ -x '*.git*'
 
      - name: Deploy to EB
        id: deployment
