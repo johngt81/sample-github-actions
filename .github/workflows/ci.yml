@@ -22,7 +22,7 @@ jobs:
       run: cd DemoApi && dotnet build --no-restore
 
   test:
-   name: Build artifact
+   name: Unit Tests
    needs: [build]
    runs-on: ubuntu-latest
    
